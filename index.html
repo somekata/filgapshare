@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>会員リスト</title>
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background-color: #f4f4f4;
+        cursor: pointer;
+        position: relative;
+      }
+      th.sorted-asc::after {
+        content: " ▲";
+      }
+      th.sorted-desc::after {
+        content: " ▼";
+      }
+      input,
+      select {
+        margin-bottom: 10px;
+        padding: 5px;
+        width: 200px;
+      }
+      #detailView {
+        display: none;
+      }
+      .clickable {
+        color: blue;
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>会員リスト</h1>
+    <div id="tableView">
+      <label for="societyFilter">学会:</label>
+      <select id="societyFilter" onchange="filterByColumn(0, this.value)">
+        <option value="">すべて</option>
+      </select>
+      <label for="nameFilter">氏名:</label>
+      <select id="nameFilter" onchange="filterByColumn(2, this.value)">
+        <option value="">すべて</option>
+      </select>
+      <table>
+        <thead>
+          <tr>
+            <th onclick="sortTable(0)">学会</th>
+            <th onclick="sortTable(1)">会員番号</th>
+            <th onclick="sortTable(2)">氏名</th>
+            <th onclick="sortTable(3)">ふりがな</th>
+            <th onclick="sortTable(4)">所属</th>
+          </tr>
+        </thead>
+        <tbody id="membersTableBody"></tbody>
+      </table>
+    </div>
+
+    <div id="detailView">
+      <button onclick="backToTableView()">戻る</button>
+      <h2 id="detailName"></h2>
+      <h3>所属</h3>
+      <ul id="detailAffiliations"></ul>
+      <h3>所属学会</h3>
+      <ul id="detailMemberships"></ul>
+      <h3>研究者情報</h3>
+      <ul>
+        <li>
+          <strong>研究者番号: </strong><span id="detailResearcherId"></span>
+        </li>
+        <li>
+          <strong>Reseachmap: </strong><span id="detailResearchMap"></span>
+        </li>
+        <li><strong>ORCID: </strong><span id="detailORCID"></span></li>
+        <li><strong>JGlobal: </strong><span id="detailJGlobal"></span></li>
+      </ul>
+    </div>
+
+    <script>
+      async function loadMembers() {
+        const membersResponse = await fetch("members_with_membership.json");
+        const affiliationsResponse = await fetch("affiliations.json");
+        const members = await membersResponse.json();
+        const affiliations = await affiliationsResponse.json();
+
+        const affMap = {};
+        affiliations.forEach((aff) => (affMap[aff.id] = aff));
+
+        function buildFullAffiliationName(id) {
+          let names = [];
+          while (id && affMap[id]) {
+            names.unshift(affMap[id].name);
+            id = affMap[id].parent_id;
+          }
+          return names.join(" ");
+        }
+
+        localStorage.setItem("membersData", JSON.stringify(members));
+        localStorage.setItem("affiliationData", JSON.stringify(affMap));
+
+        const tableBody = document.getElementById("membersTableBody");
+        tableBody.innerHTML = "";
+
+        const societyFilter = document.getElementById("societyFilter");
+        const nameFilter = document.getElementById("nameFilter");
+
+        const societies = new Set();
+        const names = new Set();
+
+        members.forEach((member) => {
+          Object.entries(member.membership || {}).forEach(([society, id]) => {
+            societies.add(society);
+            names.add(`${member.last_name} ${member.first_name}`);
+
+            const row = document.createElement("tr");
+            const affiliationsList =
+              member.affiliation_ids.length > 0
+                ? member.affiliation_ids
+                    .map((id) => buildFullAffiliationName(id))
+                    .join("<br>")
+                : "未所属";
+
+            row.innerHTML = `
+              <td class="society">${society}</td>
+              <td>${id}</td>
+              <td class="name clickable" onclick="showDetailView(${member.id})">${member.last_name} ${member.first_name}</td>
+              <td>${member.furigana_last} ${member.furigana_first}</td>
+              <td class="affiliation">${affiliationsList}</td>
+            `;
+            tableBody.appendChild(row);
+          });
+        });
+
+        societyFilter.innerHTML =
+          `<option value="">すべて</option>` +
+          [...societies]
+            .map((society) => `<option value="${society}">${society}</option>`)
+            .join(" ");
+        nameFilter.innerHTML =
+          `<option value="">すべて</option>` +
+          [...names]
+            .map((name) => `<option value="${name}">${name}</option>`)
+            .join(" ");
+      }
+
+      function showDetailView(memberId) {
+        const members = JSON.parse(localStorage.getItem("membersData"));
+        const affiliations = JSON.parse(
+          localStorage.getItem("affiliationData")
+        );
+
+        if (!members || !affiliations) {
+          console.error("メンバーまたは所属データが見つかりません");
+          return;
+        }
+
+        const member = members.find((m) => m.id === memberId);
+        if (!member) {
+          console.error("指定した ID のメンバーが見つかりません");
+          return;
+        }
+
+        document.getElementById("tableView").style.display = "none";
+        document.getElementById("detailView").style.display = "block";
+
+        document.getElementById(
+          "detailName"
+        ).innerText = `${member.last_name} ${member.first_name} (${member.furigana_last} ${member.furigana_first})`;
+
+        function buildFullAffiliationName(id) {
+          let names = [];
+          while (id && affiliations[id]) {
+            names.unshift(affiliations[id].name);
+            id = affiliations[id].parent_id;
+          }
+          return names.join(" ");
+        }
+
+        document.getElementById("detailAffiliations").innerHTML =
+          member.affiliation_ids.length > 0
+            ? member.affiliation_ids
+                .map((id) => `<li>${buildFullAffiliationName(id)}</li>`)
+                .join(" ")
+            : "<p>未所属</p>";
+
+        document.getElementById("detailMemberships").innerHTML =
+          Object.entries(member.membership || {})
+            .map(([society, id]) => `<li>${society} (${id})</li>`)
+            .join(" ") || "<p>学会情報なし</p>";
+
+        document.getElementById("detailResearcherId").innerText =
+          member.researcher_id || "なし";
+
+        // **新規追加情報の表示**
+        document.getElementById("detailResearchMap").innerHTML =
+          member.researchmap_id
+            ? `<a href="${member.researchmap_url}" target="_blank">${member.researchmap_id}</a>`
+            : "なし";
+
+        document.getElementById("detailORCID").innerHTML = member.orcid_id
+          ? `<a href="${member.orcid_url}" target="_blank">${member.orcid_id}</a>`
+          : "なし";
+
+        document.getElementById("detailJGlobal").innerHTML = member.jglobal_id
+          ? `<a href="${member.jglobal_url}" target="_blank">${member.jglobal_id}</a>`
+          : "なし";
+      }
+
+      function filterByColumn(columnIndex, value) {
+        const rows = document.querySelectorAll("tbody tr");
+        rows.forEach((row) => {
+          const cellText = row.cells[columnIndex].innerText.toLowerCase();
+          row.style.display =
+            value === "" || cellText.includes(value.toLowerCase())
+              ? ""
+              : "none";
+        });
+      }
+
+      function sortTable(n) {
+        const table = document.querySelector("table");
+        const headers = table.querySelectorAll("th");
+        headers.forEach((header) =>
+          header.classList.remove("sorted-asc", "sorted-desc")
+        );
+
+        const rows = Array.from(table.querySelector("tbody").rows);
+        const asc = table.rows[0].cells[n].getAttribute("data-order") !== "asc";
+        table.rows[0].cells[n].setAttribute("data-order", asc ? "asc" : "desc");
+        headers[n].classList.add(asc ? "sorted-asc" : "sorted-desc");
+
+        rows.sort((rowA, rowB) => {
+          const cellA = rowA.cells[n].innerText.trim().toLowerCase();
+          const cellB = rowB.cells[n].innerText.trim().toLowerCase();
+          return asc ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+        });
+
+        rows.forEach((row) => table.querySelector("tbody").appendChild(row));
+      }
+
+      function backToTableView() {
+        document.getElementById("tableView").style.display = "block";
+        document.getElementById("detailView").style.display = "none";
+      }
+
+      loadMembers();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "name": "大阪公立大学",
+    "parent_id": null
+  },
+  {
+    "id": 2,
+    "name": "大阪国際感染症研究センター",
+    "parent_id": 1
+  },
+  {
+    "id": 3,
+    "name": "大学院医学研究科",
+    "parent_id": 1
+  },
+  {
+    "id": 4,
+    "name": "臨床感染制御学",
+    "parent_id": 3
+  },
+  {
+    "id": 5,
+    "name": "細菌学",
+    "parent_id": 3
+  },
+  {
+    "id": 6,
+    "name": "感染症科学研究センター",
+    "parent_id": 3
+  },
+  {
+    "id": 7,
+    "name": "医学部附属病院",
+    "parent_id": 1
+  },
+  {
+    "id": 8,
+    "name": "感染制御部",
+    "parent_id": 7
+  },
+  {
+    "id": 9,
+    "name": "薬剤部",
+    "parent_id": 7
+  },
+  {
+    "id": 10,
+    "name": "中央臨床検査部",
+    "parent_id": 7
+  },
+  {
+    "id": 11,
+    "name": "看護部",
+    "parent_id": 7
+  },
+  {
+    "id": 12,
+    "name": "市立大村市民病院",
+    "parent_id": null
+  },
+  {
+    "id": 13,
+    "name": "救急総合診療科",
+    "parent_id": 12
+  },
+  {
+    "id": 14,
+    "name": "総合医学教育学",
+    "parent_id": 3
+  }
+]
