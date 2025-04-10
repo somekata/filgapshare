@@ -42,6 +42,39 @@
         text-decoration: underline;
       }
     </style>
+    <style>
+      .tooltip {
+        position: relative;
+        cursor: pointer;
+        text-decoration: underline dotted;
+      }
+
+      .tooltip::after {
+        content: attr(data-tooltip);
+        white-space: pre-line; /* 改行を反映 */
+        position: absolute;
+        left: 0;
+        top: 110%; /* 少し下に表示 */
+        z-index: 10;
+        background-color: #007acc; /* 青色 */
+        color: #fff;
+        padding: 10px 14px;
+        border-radius: 6px;
+        font-size: 16px;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(5px);
+        transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+        max-width: 320px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      .tooltip:hover::after,
+      .tooltip[data-tooltip-active="true"]::after {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
   </head>
   <body>
     <h1>会員リスト</h1>
@@ -128,7 +161,26 @@
             const affiliationsList =
               member.affiliation_ids.length > 0
                 ? member.affiliation_ids
-                    .map((id) => buildFullAffiliationName(id))
+                    .map((id) => {
+                      const fullName = buildFullAffiliationName(id);
+
+                      function getAddressRecursive(id) {
+                        while (id) {
+                          if (affMap[id] && affMap[id].address) {
+                            return affMap[id].address;
+                          }
+                          id = affMap[id] ? affMap[id].parent_id : null;
+                        }
+                        return "";
+                      }
+
+                      const address = getAddressRecursive(id);
+                      const tooltipText = address
+                        ? `${fullName}\n${address}`
+                        : fullName;
+                      return `<span class="tooltip" data-tooltip="${tooltipText}" onclick="copyToClipboard(\`${tooltipText}\`)">${fullName}</span>`;
+                    })
+
                     .join("<br>")
                 : "未所属";
 
@@ -255,15 +307,30 @@
         document.getElementById("detailView").style.display = "none";
       }
 
-      loadMembers();
-    </script>
-    <script>
-      const password = "saikin"; // パスワードを設定
-      const userPassword = prompt("Enter password:");
-
-      if (userPassword !== password) {
-        document.body.innerHTML = "<h1>Unauthorized Access</h1>";
+      function copyToClipboard(text) {
+        navigator.clipboard
+          .writeText(text)
+          .then(() => {
+            alert("コピーしました:\n" + text);
+          })
+          .catch((err) => {
+            alert("コピーに失敗しました");
+            console.error("Clipboard error:", err);
+          });
       }
+      document.addEventListener("click", function (e) {
+        document.querySelectorAll(".tooltip").forEach((el) => {
+          if (el !== e.target) el.removeAttribute("data-tooltip-active");
+        });
+
+        if (e.target.classList.contains("tooltip")) {
+          const isActive =
+            e.target.getAttribute("data-tooltip-active") === "true";
+          e.target.setAttribute("data-tooltip-active", !isActive);
+        }
+      });
+
+      loadMembers();
     </script>
   </body>
 </html>
