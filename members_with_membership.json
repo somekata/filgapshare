@@ -151,7 +151,7 @@
     "last_name": "金子",
     "first_name": "幸弘",
     "affiliation_ids": [
-      5,6,2
+      5,6,2,15
     ],
     "furigana_last": "かねこ",
     "furigana_first": "ゆきひろ",
@@ -184,7 +184,7 @@
     "last_name": "坪内",
     "first_name": "泰志",
     "affiliation_ids": [
-      5
+      15,5
     ],
     "furigana_last": "つぼうち",
     "furigana_first": "たいし",
@@ -425,6 +425,25 @@
     "jglobal_id":"",
     "jglobal_url":""
 
+  },
+  {
+    "id":21,
+    "last_name": "Nijiati",
+    "first_name": "Naijimiding",
+    "furigana_last": "ニジアティ",
+    "furigana_first": "ナイジミディング",
+    "affiliation_ids": [
+      5
+    ],
+    "membership": {
+    },
+    "researcher_id":"",
+    "researchmap_id":"",
+    "researchmap_url":"",
+    "orcid_id":"0009-0002-2414-3447",
+    "orcid_url":"https://orcid.org/0009-0002-2414-3447",
+    "jglobal_id":"",
+    "jglobal_url":""
   }
 ]
 
