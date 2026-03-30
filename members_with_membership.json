@@ -445,6 +445,26 @@
     "orcid_url":"https://orcid.org/0009-0002-2414-3447",
     "jglobal_id":"",
     "jglobal_url":""
+  },
+  {
+    "id":22,
+    "last_name": "串間",
+    "first_name": "尚子",
+    "furigana_last": "くしま",
+    "furigana_first": "ひさこ",
+    "affiliation_ids": [
+      16,17
+    ],
+    "membership": {
+      "日本感染症学会": "-"
+    },
+    "researcher_id":"90642497",
+    "researchmap_id":"7000015888",
+    "researchmap_url":"https://researchmap.jp/7000015888",
+    "orcid_id":"0000-0001-5289-4905",
+    "orcid_url":"https://orcid.org/0000-0001-5289-4905",
+    "jglobal_id":"201601005667023918",
+    "jglobal_url":"https://jglobal.jst.go.jp/detail?JGLOBAL_ID=201601005667023918"
   }
 ]
 
