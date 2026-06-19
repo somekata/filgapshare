@@ -4,7 +4,7 @@
     "last_name": "掛屋",
     "first_name": "弘",
     "affiliation_ids": [
-      4,2,6,8
+      4,2,6,8,22
     ],
     "furigana_last": "かけや",
     "furigana_first": "ひろし",
@@ -14,7 +14,7 @@
       "日本呼吸器学会":10901,
       "日本内科学会":"カ-05001",
       "日本医師会":1000020195,
-      "日本医真菌学会":"104-549-7072",
+      "日本医真菌学会":"1045497072",
       "日本化学療法学会":19500259,
       "日本結核学会":"0065670",
       "日本臨床微生物学会":1679416340,
@@ -40,7 +40,7 @@
     "membership": {
       "日本環境感染学会": 1869331252,
       "大阪市大倫理":"281154"	,
-      "日本医真菌学会":"104-449-8335"	,
+      "日本医真菌学会":"1044498335"	,
       "日本化学療法学会":"10800862"	,
       "日本感染症学会":"10800795"	,
       "日本結核病学会":"85930"	,
@@ -158,7 +158,7 @@
     "membership": {
       "日本環境感染学会": 1869333492,
       "日本感染症学会": 19800176,
-      "日本医真菌学会":"104-249-8102"	,
+      "日本医真菌学会":"1042498102"	,
       "日本化学療法学会":"19900056"	,
       "日本結核病学会":"0065780"	,
       "日本呼吸器学会":"14471"	,
@@ -268,8 +268,8 @@
     "researcher_id":"",
     "researchmap_id":"",
     "researchmap_url":"",
-    "orcid_id":"",
-    "orcid_url":"",
+    "orcid_id":"0000-0002-3420-6897",
+    "orcid_url":"https://orcid.org/0000-0002-3420-6897",
     "jglobal_id":"",
     "jglobal_url":""
 
@@ -310,7 +310,7 @@
     "furigana_last": "いもと",
     "furigana_first": "わき",
     "affiliation_ids": [
-      4
+      4,2,6,8,22
     ],
     "membership": {
       "日本内科学会": "イ12322",
@@ -318,13 +318,14 @@
       "日本化学療法学会": "11400656",
       "日本結核病学会": "0096970",
       "日本呼吸器学会": "22714",
-      "日本内視鏡学会": "300058"
+      "日本内視鏡学会": "300058",
+      "医真菌学会": "1040500271"
     },
     "researcher_id":"",
     "researchmap_id":"",
     "researchmap_url":"",
-    "orcid_id":"",
-    "orcid_url":"",
+    "orcid_id":"0000-0003-0392-1764",
+    "orcid_url":"https://orcid.org/0000-0003-0392-1764",
     "jglobal_id":"",
     "jglobal_url":""
 
@@ -453,10 +454,11 @@
     "furigana_last": "くしま",
     "furigana_first": "ひさこ",
     "affiliation_ids": [
-      16,17
+      17
     ],
     "membership": {
-      "日本感染症学会": "-"
+      "日本感染症学会": "-",
+      "日本医真菌学会": ""
     },
     "researcher_id":"90642497",
     "researchmap_id":"7000015888",
@@ -465,6 +467,113 @@
     "orcid_url":"https://orcid.org/0000-0001-5289-4905",
     "jglobal_id":"201601005667023918",
     "jglobal_url":"https://jglobal.jst.go.jp/detail?JGLOBAL_ID=201601005667023918"
+  },
+  {
+    "id":23,
+    "last_name": "井原",
+    "first_name": "康貴",
+    "furigana_last": "いはら",
+    "furigana_first": "やすたか",
+    "affiliation_ids": [
+      21
+    ],
+    "membership": {
+      "日本感染症学会": "-"
+    },
+    "researcher_id":"",
+    "researchmap_id":"",
+    "researchmap_url":"",
+    "orcid_id":"0000-0003-2538-6328",
+    "orcid_url":"https://orcid.org/0000-0003-2538-6328",
+    "jglobal_id":"",
+    "jglobal_url":""
+  },
+  {
+    "id":24,
+    "last_name": "奥田",
+    "first_name": "諒",
+    "furigana_last": "おくだ",
+    "furigana_first": "りょう",
+    "affiliation_ids": [
+      5
+    ],
+    "membership": {
+      "日本感染症学会": "-"
+    },
+    "researcher_id":"",
+    "researchmap_id":"",
+    "researchmap_url":"",
+    "orcid_id":"0009-0009-9909-8514",
+    "orcid_url":"https://orcid.org/0009-0009-9909-8514",
+    "jglobal_id":"",
+    "jglobal_url":""
+    
+  },
+  {
+    "id":25,
+    "last_name": "宮﨑",
+    "first_name": "義継",
+    "furigana_last": "みやざき",
+    "furigana_first": "よしつぐ",
+    "affiliation_ids": [
+      24
+    ],
+    "membership": {
+      "日本感染症学会": "-",
+      "日本化学療法学会": "-",
+      "日本医真菌学会": "1048496793"
+    },
+    "researcher_id":"",
+    "researchmap_id":"",
+    "researchmap_url":"",
+    "orcid_id":"0000-0001-8942-0869",
+    "orcid_url":"https://orcid.org/0000-0001-8942-0869",
+    "jglobal_id":"",
+    "jglobal_url":""
+  },
+  {
+    "id":26,
+    "last_name": "阿部",
+    "first_name": "雅広",
+    "furigana_last": "あべ",
+    "furigana_first": "まさひろ",
+    "affiliation_ids": [
+      24
+    ],
+    "membership": {
+      "日本感染症学会": "-",
+      "日本化学療法学会": "-",
+      "日本医真菌学会": "1040498810"
+    },
+    "researcher_id":"",
+    "researchmap_id":"",
+    "researchmap_url":"",
+    "orcid_id":"0000-0002-6355-716X",
+    "orcid_url":"",
+    "jglobal_id":"",
+    "jglobal_url":""
+  },
+  {
+    "id":27,
+    "last_name": "槇村 ",
+    "first_name": "浩一",
+    "furigana_last": "まきむら",
+    "furigana_first": "こういち",
+    "affiliation_ids": [
+      26
+    ],
+    "membership": {
+      "日本感染症学会": "-",
+      "日本化学療法学会": "-",
+      "日本医真菌学会": "99"
+    },
+    "researcher_id":"",
+    "researchmap_id":"",
+    "researchmap_url":"",
+    "orcid_id":"0000-0003-1645-3445",
+    "orcid_url":"https://orcid.org/0000-0003-1645-3445",
+    "jglobal_id":"",
+    "jglobal_url":""
   }
 ]
 
